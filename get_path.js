@@ -25,20 +25,18 @@ Get full path on an element from the JSON below.  For example the full path of i
 function getJsonPath(data, element, path) {
   var fullPath = [];
   path = path || "";
-  for (var object in data) {
-    if (data[object] == element) {
-      return (path + "/" + object);
-    } else if (typeof data[object] == "object") {
+  for (var key in data) {
+    if (data[key] === element) {
+      return (path + "/" + key);
+    } else if (typeof data[key] === "object") {
       var temp;
-      if (isNaN(object)) {
-        temp = getJsonPath(data[object], element, path + "/" + object);
+      if (isNaN(key)) {
+        temp = getJsonPath(data[key], element, path + "/" + key);
       }
-      else{
-        temp = getJsonPath(data[object], element, path + "[" + object + "]");
+      else {
+        temp = getJsonPath(data[key], element, path + "[" + key + "]");
       }
-
-
-      if (temp.length) {
+      if (temp.length > 0) {
         fullPath.push(temp);
       }
     }
